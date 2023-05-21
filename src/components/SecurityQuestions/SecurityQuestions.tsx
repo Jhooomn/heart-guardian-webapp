@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SecurityQuestions.scss";
 
 import { TabView, TabPanel } from "primereact/tabview";
@@ -18,7 +18,16 @@ const SecurityQuestions: React.FC<SecurityQuestionsProps> = () => {
   const [firstQuestionHidden] = useState(false);
   const [secondtQuestionHidden, setSecondQuestionHidden] = useState(true);
   const [thirdQuestionHidden, setThirdQuestionHidden] = useState(true);
+
+  const [questions, setQuestions] = useState([""]);
+
   const MySwal = withReactContent(Swal);
+
+  useEffect(() => {
+    fetch("https://heart-guardian-service.vercel.app/questions")
+      .then((response) => response.json())
+      .then((data) => setQuestions(data));
+  }, []);
 
   const notifyEmergencyContact = () => {
     console.log("notify to emergency contact");
@@ -52,10 +61,7 @@ const SecurityQuestions: React.FC<SecurityQuestionsProps> = () => {
     <div className="card">
       <TabView>
         <TabPanel header="Pregunta I" disabled={firstQuestionHidden}>
-          <p className="m-0">
-            If two mind readers are reading each other's minds, whose mind are
-            they actually reading?
-          </p>
+          <p className="m-0">{questions[0]}</p>
           <div className="card flex justify-content-center">
             <SelectButton
               value={firstQuestion}
@@ -65,7 +71,7 @@ const SecurityQuestions: React.FC<SecurityQuestionsProps> = () => {
           </div>
         </TabPanel>
         <TabPanel header="Pregunta II" disabled={secondtQuestionHidden}>
-          <p className="m-0">Can you cry underwater?</p>
+          <p className="m-0"> {questions[1]}</p>
           <div className="card flex justify-content-center">
             <SelectButton
               value={secondtQuestion}
@@ -75,7 +81,7 @@ const SecurityQuestions: React.FC<SecurityQuestionsProps> = () => {
           </div>
         </TabPanel>
         <TabPanel header="Pregunta III" disabled={thirdQuestionHidden}>
-          <p className="m-0">If a tomato is a fruit, is ketchup a smoothie?</p>
+          <p className="m-0"> {questions[2]}</p>
           <div className="card flex justify-content-center">
             <SelectButton
               value={thirdQuestion}
