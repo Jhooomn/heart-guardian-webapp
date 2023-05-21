@@ -23,36 +23,34 @@ const Login: React.FC<LoginProps> = () => {
   };
 
   return (
-    <div className="card">
-      <Card title="Heart Guardian">
-        <div className="image-container">
-          <img src="/login.png" alt="Your Image" />
+    <Card title="Heart Guardian" id="login-card">
+      <div className="image-container">
+        <img src="/login.png" alt="Your Image" />
+      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="flex justify-content-center">
+          <InputText
+            value={username}
+            placeholder="Usuario"
+            onChange={(e) => setUsername(e.target.value)}
+            className="login-inputs"
+          />
         </div>
-        <div className="card">
-          <form onSubmit={handleSubmit}>
-            <div className="card flex justify-content-center">
-              <InputText
-                value={username}
-                placeholder="Usuario"
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div className="card flex justify-content-center">
-              <Password
-                value={password}
-                placeholder="Contraseña"
-                onChange={(e) => setPassword(e.target.value)}
-                feedback={false}
-              />
-            </div>
-            <Button type="submit" label="Iniciar Sesion" />
-          </form>
-          <div className="card flex justify-content-center">
-            <Button label="Registrarse" />
-          </div>
+        <div className="flex justify-content-center">
+          <Password
+            value={password}
+            placeholder="Contraseña"
+            onChange={(e) => setPassword(e.target.value)}
+            feedback={false}
+            className="login-inputs"
+          />
         </div>
-      </Card>
-    </div>
+        <Button type="submit" label="Iniciar Sesion" className="login-inputs" />
+      </form>
+      <div className="flex justify-content-center">
+        <Button label="Registrarse" className="login-inputs" />
+      </div>
+    </Card>
   );
 };
 
