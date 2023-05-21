@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./SignUp.scss";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
-import { InputNumber } from "primereact/inputnumber";
 
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
