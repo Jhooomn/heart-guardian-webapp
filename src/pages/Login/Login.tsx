@@ -23,36 +23,32 @@ const Login: React.FC<LoginProps> = () => {
   };
 
   return (
-    <div className="card">
-      <Card title="Heart Guardian">
+      <Card title="Heart Guardian" id="login-card">
         <div className="image-container">
           <img src="/login.png" alt="Your Image" />
         </div>
-        <div className="card">
-          <form onSubmit={handleSubmit}>
-            <div className="card flex justify-content-center">
-              <InputText
-                value={username}
-                placeholder="Usuario"
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div className="card flex justify-content-center">
-              <Password
-                value={password}
-                placeholder="Contraseña"
-                onChange={(e) => setPassword(e.target.value)}
-                feedback={false}
-              />
-            </div>
-            <Button type="submit" label="Iniciar Sesion" />
-          </form>
-          <div className="card flex justify-content-center">
-            <Button label="Registrarse" />
+        <form onSubmit={handleSubmit}>
+          <div className="flex justify-content-center">
+            <InputText
+              value={username}
+              placeholder="Usuario"
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
+          <div className="flex justify-content-center">
+            <Password
+              value={password}
+              placeholder="Contraseña"
+              onChange={(e) => setPassword(e.target.value)}
+              feedback={false}
+            />
+          </div>
+          <Button type="submit" label="Iniciar Sesion" />
+        </form>
+        <div className="flex justify-content-center">
+          <Button label="Registrarse" />
         </div>
       </Card>
-    </div>
   );
 };
 
