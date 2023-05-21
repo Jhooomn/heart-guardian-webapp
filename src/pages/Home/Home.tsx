@@ -14,7 +14,7 @@ export type HomeProps = {
 const Home: React.FC<HomeProps> = () => {
   const user_avg = 86;
 
-  const [bpm, setBpm] = useState(100);
+  const [bpm] = useState(100);
   const [isSecurityQuestionsHidden, setIsSecurityQuestionsHidden] =
     useState(true);
 

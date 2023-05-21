@@ -8,8 +8,8 @@ export type InfoMessageProps = {
 };
 
 const InfoMessage: React.FC<InfoMessageProps> = (props: InfoMessageProps) => {
-  const [actualBpm, setActualBpm] = useState(props.actualBpm);
-  const [userAvgBpm, setUserAvgBpm] = useState(props.userAvgBpm);
+  const [actualBpm] = useState(props.actualBpm);
+  const [userAvgBpm] = useState(props.userAvgBpm);
 
   if (actualBpm === userAvgBpm) {
     return (

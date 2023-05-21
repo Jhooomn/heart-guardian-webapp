@@ -15,7 +15,7 @@ const SecurityQuestions: React.FC<SecurityQuestionsProps> = () => {
   const [secondtQuestion, setSecondQuestion] = useState(options[1]);
   const [thirdQuestion, setThirdQuestion] = useState(options[1]);
 
-  const [firstQuestionHidden, setFirstQuestionHidden] = useState(false);
+  const [firstQuestionHidden] = useState(false);
   const [secondtQuestionHidden, setSecondQuestionHidden] = useState(true);
   const [thirdQuestionHidden, setThirdQuestionHidden] = useState(true);
   const MySwal = withReactContent(Swal);

@@ -8,7 +8,7 @@ export type HeartRateProps = {
 };
 
 const HeartRate: React.FC<HeartRateProps> = (props: HeartRateProps) => {
-  const [bpm, setBpm] = useState(props.bpm);
+  const [bpm] = useState(props.bpm);
   return (
     <div id="bpm" className="has-text-centered">
       <Card>
