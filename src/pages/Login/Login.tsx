@@ -23,32 +23,34 @@ const Login: React.FC<LoginProps> = () => {
   };
 
   return (
-      <Card title="Heart Guardian" id="login-card">
-        <div className="image-container">
-          <img src="/login.png" alt="Your Image" />
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className="flex justify-content-center">
-            <InputText
-              value={username}
-              placeholder="Usuario"
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div className="flex justify-content-center">
-            <Password
-              value={password}
-              placeholder="Contraseña"
-              onChange={(e) => setPassword(e.target.value)}
-              feedback={false}
-            />
-          </div>
-          <Button type="submit" label="Iniciar Sesion" />
-        </form>
+    <Card title="Heart Guardian" id="login-card">
+      <div className="image-container">
+        <img src="/login.png" alt="Your Image" />
+      </div>
+      <form onSubmit={handleSubmit}>
         <div className="flex justify-content-center">
-          <Button label="Registrarse" />
+          <InputText
+            value={username}
+            placeholder="Usuario"
+            onChange={(e) => setUsername(e.target.value)}
+            className="login-inputs"
+          />
         </div>
-      </Card>
+        <div className="flex justify-content-center">
+          <Password
+            value={password}
+            placeholder="Contraseña"
+            onChange={(e) => setPassword(e.target.value)}
+            feedback={false}
+            className="login-inputs"
+          />
+        </div>
+        <Button type="submit" label="Iniciar Sesion" className="login-inputs" />
+      </form>
+      <div className="flex justify-content-center">
+        <Button label="Registrarse" className="login-inputs" />
+      </div>
+    </Card>
   );
 };
 
