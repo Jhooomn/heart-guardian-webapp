@@ -22,6 +22,11 @@ const Login: React.FC<LoginProps> = () => {
     navigate("/home");
   };
 
+  const handleSignUp = (event: any) => {
+    event.preventDefault();
+    navigate("/signup");
+  };
+
   return (
     <Card title="Heart Guardian" id="login-card">
       <div className="image-container">
@@ -48,7 +53,7 @@ const Login: React.FC<LoginProps> = () => {
         <Button type="submit" label="Iniciar Sesion" className="login-inputs" />
       </form>
       <div className="flex justify-content-center">
-        <Button label="Registrarse" className="login-inputs" />
+        <Button label="Registrarse" onClick={handleSignUp} className="login-inputs" />
       </div>
     </Card>
   );
