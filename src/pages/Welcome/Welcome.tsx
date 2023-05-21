@@ -12,7 +12,7 @@ export type WelcomeProps = {
 const Welcome: React.FC<WelcomeProps> = () => {
 	const navigate = useNavigate();
 
-	setTimeout((event: any) => {
+	setTimeout(() => {
 		navigate("/login")
 	}, 4000);
 
