@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./SignUp.scss";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
@@ -22,6 +24,7 @@ export type EmergencyContact = {
 };
 
 export type UserInfo = {
+  id: string;
   name: string;
   lastName: string;
   email: string;
@@ -48,6 +51,7 @@ const SignUp: React.FC<SignUpProps> = () => {
   const [eRelation, seteRelation] = useState("");
   const [eTelephone, seteTelephone] = useState("");
   const [eAge, seteAge] = useState("");
+  const MySwal = withReactContent(Swal);
 
   const relationship = [
     { name: "Madre", code: "MA" },
@@ -60,6 +64,7 @@ const SignUp: React.FC<SignUpProps> = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     const user: UserInfo = {
+      id: "",
       name: uName,
       lastName: uLastName,
       email: uEmail,
@@ -75,9 +80,38 @@ const SignUp: React.FC<SignUpProps> = () => {
         age: eAge,
       },
     };
-    console.log(user);
-    navigate("/login");
+    fetch("https://heart-guardian-service.vercel.app/users/", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user: user,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw response.json();
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        navigate("/login");
+      })
+      .catch((error) => {
+        error.then((errorMessage: any) => {
+          // Handle the error message here
+          MySwal.fire({
+            position: "center",
+            icon: "error",
+            title: errorMessage,
+            showConfirmButton: true,
+            timer: 2500,
+          });
+        });
+      });
   };
+
   return (
     <Card title="Registrar Usuario">
       <div>
