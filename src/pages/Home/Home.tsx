@@ -37,10 +37,12 @@ const Home: React.FC<HomeProps> = () => {
   const [bpm, setBpm] = useState(0.0);
   const [user, setUser] = useState<User | null>(null);
   const [bpms, setBpms] = useState<Bpms | null>(null);
-  //const [user_avg, setUser_Avg] = useState(0)
+  const handleHeartClick = () => {
+    setBpm(generateNumber(35, 200));
+  };
   const header = (
     <div className="image-container-home">
-      <img src="/logo_remove.png" alt="Your Image" />
+      <img src="/logo_remove.png" alt="Your Image" onClick={handleHeartClick} />
     </div>
   );
   console.log(user);
@@ -51,7 +53,9 @@ const Home: React.FC<HomeProps> = () => {
       ? JSON.parse(userStored)
       : null;
     setUser(parsedUserStored);
-    fetch(`https://heart-guardian-service.vercel.app/bpm/${parsedUserStored?.email}`)
+    fetch(
+      `https://heart-guardian-service.vercel.app/bpm/${parsedUserStored?.email}`
+    )
       .then((response) => response.json())
       .then((data: Bpms) => {
         setBpms(data);
