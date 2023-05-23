@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./HeartRate.scss";
 
 import { Card } from "primereact/card";
@@ -8,11 +8,10 @@ export type HeartRateProps = {
 };
 
 const HeartRate: React.FC<HeartRateProps> = (props: HeartRateProps) => {
-  const [bpm] = useState(props.bpm);
   return (
     <div id="bpm" className="has-text-centered">
       <Card>
-        <h2 id="bpm-title">{bpm}</h2>
+        <h2 id="bpm-title">{props.bpm}</h2>
         <p className="m-0">bpm</p>
       </Card>
     </div>

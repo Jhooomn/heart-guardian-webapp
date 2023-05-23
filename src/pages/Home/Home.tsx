@@ -11,26 +11,60 @@ export type HomeProps = {
   message?: string;
 };
 
+interface User {
+  age: number;
+  e_age: number;
+  e_email: string;
+  e_last_name: string;
+  e_name: string;
+  e_relation: string;
+  e_telephone: string;
+  email: string;
+  id: string;
+  last_name: string;
+  password: string;
+  telephone: string;
+}
+
+interface Bpms {
+  bpms: number[];
+  email: string;
+  id: string;
+  avg: number;
+}
+
 const Home: React.FC<HomeProps> = () => {
-  const user_avg = 86;
-
-  const [bpm] = useState(100);
-  const [isSecurityQuestionsHidden, setIsSecurityQuestionsHidden] =
-    useState(true);
-
+  const [bpm, setBpm] = useState(0.0);
+  const [user, setUser] = useState<User | null>(null);
+  const [bpms, setBpms] = useState<Bpms | null>(null);
+  //const [user_avg, setUser_Avg] = useState(0)
   const header = (
     <div className="image-container-home">
       <img src="/logo_remove.png" alt="Your Image" />
     </div>
   );
-
+  console.log(user);
   useEffect(() => {
-    const isSecQuestionsHidden = () => {
-      return bpm === user_avg;
-    };
-    setIsSecurityQuestionsHidden(isSecQuestionsHidden);
-  }, [bpm]);
+    setBpm(generateNumber(35, 200));
+    const userStored = localStorage.getItem("userStored");
+    const parsedUserStored: User | null = userStored
+      ? JSON.parse(userStored)
+      : null;
+    setUser(parsedUserStored);
+    fetch(`https://heart-guardian-service.vercel.app/bpm/${parsedUserStored?.email}`)
+      .then((response) => response.json())
+      .then((data: Bpms) => {
+        setBpms(data);
+      });
+  }, []);
 
+  const generateNumber = function (min: number, max: number): number {
+    if (min > max) {
+      throw new Error("Minimum value should be smaller than maximum value.");
+    }
+    const range: number = max - min;
+    return min + range * Math.random();
+  };
   return (
     <div className="card flex justify-content-center">
       <Card
@@ -52,11 +86,17 @@ const Home: React.FC<HomeProps> = () => {
           </div>
         </div>
         <Divider />
-        <InfoMessage actualBpm={bpm} userAvgBpm={user_avg}></InfoMessage>
+        <InfoMessage
+          actualBpm={bpm}
+          userAvgBpm={bpms ? bpms.avg : 0}
+          bpms={bpms ? bpms?.bpms : []}
+        ></InfoMessage>
         <Divider />
-        <div hidden={isSecurityQuestionsHidden}>
-          <SecurityQuestions />
-        </div>
+        <SecurityQuestions
+          actualBpm={bpm}
+          userAvgBpm={bpms ? bpms.avg : 0}
+          bpms={bpms ? bpms?.bpms : []}
+        />
       </Card>
     </div>
   );

@@ -7,9 +7,14 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 export type SecurityQuestionsProps = {
   message?: string;
+  actualBpm: number;
+  userAvgBpm: number;
+  bpms: number[];
 };
 
-const SecurityQuestions: React.FC<SecurityQuestionsProps> = () => {
+const SecurityQuestions: React.FC<SecurityQuestionsProps> = (
+  props: SecurityQuestionsProps
+) => {
   const options = ["Si", "No"];
   const [firstQuestion, setFirstQuestion] = useState(options[1]);
   const [secondtQuestion, setSecondQuestion] = useState(options[1]);
@@ -56,8 +61,14 @@ const SecurityQuestions: React.FC<SecurityQuestionsProps> = () => {
       });
     }
   };
+  const minValue = Math.min(...props.bpms);
+  const maxValue = Math.max(...props.bpms);
+  console.log("min: ", minValue)
+  console.log("max: ", maxValue)
+  const showContent =
+    props.actualBpm <= minValue || props.actualBpm >= maxValue;
 
-  return (
+  const full_content = (
     <div className="card">
       <TabView>
         <TabPanel header="Pregunta I" disabled={firstQuestionHidden}>
@@ -93,6 +104,10 @@ const SecurityQuestions: React.FC<SecurityQuestionsProps> = () => {
       </TabView>
     </div>
   );
+
+    const final_content = showContent ? full_content : <></>
+
+  return final_content;
 };
 
 export default SecurityQuestions;

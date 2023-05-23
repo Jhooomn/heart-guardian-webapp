@@ -38,7 +38,7 @@ const Login: React.FC<LoginProps> = () => {
         }
       })
       .then((data) => {
-        console.log(data);
+        localStorage.setItem('userStored', JSON.stringify(data));
         navigate("/home");
       })
       .catch((error) => {

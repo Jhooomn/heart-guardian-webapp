@@ -95,7 +95,6 @@ const SignUp: React.FC<SignUpProps> = () => {
         }
       })
       .then((data) => {
-        console.log(data);
         navigate("/login");
       })
       .catch((error) => {
