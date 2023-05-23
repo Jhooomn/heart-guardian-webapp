@@ -1,24 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import "./InfoMessage.scss";
 import { Message } from "primereact/message";
 
 export type InfoMessageProps = {
   actualBpm: number;
   userAvgBpm: number;
+  bpms: number[];
 };
 
 const InfoMessage: React.FC<InfoMessageProps> = (props: InfoMessageProps) => {
-  const [actualBpm] = useState(props.actualBpm);
-  const [userAvgBpm] = useState(props.userAvgBpm);
-
-  if (actualBpm === userAvgBpm) {
-    return (
-      <>
-        <Message severity="success" text="Te encuentras en un nivel estable" />
-      </>
-    );
-  }
-  if (actualBpm < userAvgBpm) {
+  const minValue = Math.min(...props.bpms);
+  const maxValue = Math.max(...props.bpms);
+  if (props.actualBpm <= minValue) {
     return (
       <>
         <Message
@@ -28,7 +21,7 @@ const InfoMessage: React.FC<InfoMessageProps> = (props: InfoMessageProps) => {
       </>
     );
   }
-  if (actualBpm > userAvgBpm) {
+  if (props.actualBpm >= maxValue) {
     return (
       <>
         <Message
@@ -38,7 +31,11 @@ const InfoMessage: React.FC<InfoMessageProps> = (props: InfoMessageProps) => {
       </>
     );
   }
-  return <></>;
+  return (
+    <>
+      <Message severity="success" text="Te encuentras en un nivel estable" />
+    </>
+  );
 };
 
 export default InfoMessage;
