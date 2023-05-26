@@ -1,6 +1,5 @@
 import React from "react";
 import "./Welcome.scss";
-import { Image } from "primereact/image";
 import { useNavigate } from "react-router-dom";
 
 import { ProgressSpinner } from "primereact/progressspinner";
@@ -17,17 +16,15 @@ const Welcome: React.FC<WelcomeProps> = () => {
 	}, 4000);
 
   return (
-    <>
-      <div className="heart">
-        <Image src="logo.jpg" alt="Bouncing Image" className="bounce-image" />
-      </div>
-      <div className="spinner-container">
-        <ProgressSpinner
-          style={{ width: "50px", height: "50px" }}
+    <div className="card body">
+      <img src="circlelogo-modified.png"  />
+    <div className="spinner-container">
+          <ProgressSpinner
+          style={{ width: "40px", height: "40px" }}
           animationDuration="8s"
         />
-      </div>
-    </>
+        </div>
+  </div>
   );
 };
 

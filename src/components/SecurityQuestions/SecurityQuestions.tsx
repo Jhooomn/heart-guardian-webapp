@@ -110,8 +110,23 @@ const SecurityQuestions: React.FC<SecurityQuestionsProps> = (
   };
   const minValue = Math.min(...props.bpms);
   const maxValue = Math.max(...props.bpms);
-  const showContent =
-    props.actualBpm <= minValue || props.actualBpm >= maxValue;
+  console.log("actualBpm: ", props.actualBpm);
+  console.log("minValue: ", minValue);
+  console.log("maxValue: ", maxValue);
+
+  const showContent = !(
+    props.actualBpm >= minValue && props.actualBpm <= maxValue
+  );
+
+  useEffect(() => {
+    if (showContent) {
+      const timeoutId = setTimeout(() => {
+        console.log("hey: ", showContent);
+        notifyEmergencyContact();
+      }, 6000);
+      return () => clearTimeout(timeoutId);
+    }
+  });
 
   const full_content = (
     <div className="card">
@@ -149,14 +164,11 @@ const SecurityQuestions: React.FC<SecurityQuestionsProps> = (
       </TabView>
     </div>
   );
-
-  const final_content = showContent ? full_content : <></>;
   if (showContent) {
-    setTimeout(() => {
-      notifyEmergencyContact();
-    }, 60000);
+    return full_content;
+  } else {
+    return <></>;
   }
-  return final_content;
 };
 
 export default SecurityQuestions;

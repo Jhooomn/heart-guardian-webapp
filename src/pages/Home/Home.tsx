@@ -34,7 +34,7 @@ interface Bpms {
 }
 
 const Home: React.FC<HomeProps> = () => {
-  const [bpm, setBpm] = useState(0.0);
+  const [bpm, setBpm] = useState(0);
   const [user, setUser] = useState<User | null>(null);
   const [bpms, setBpms] = useState<Bpms | null>(null);
   const handleHeartClick = () => {
@@ -67,7 +67,7 @@ const Home: React.FC<HomeProps> = () => {
       throw new Error("Minimum value should be smaller than maximum value.");
     }
     const range: number = max - min;
-    return min + range * Math.random();
+    return Math.trunc(min + range * Math.random());
   };
   return (
     <div className="card flex justify-content-center">
